@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello-Vue-Analysis</title>
+</head>
+<body>
+<script type="text/javascript" src="../js/vue.js"></script>
+<!--容器-->
+<div class="vm">
+  Hello,{{name}}
+</div>
+<div class="vm">
+  Hello,{{name}}
+</div>
+<script>
+  new Vue({
+    el: '.vm',
+    data: {name: '小A'}
+  });
+</script>
+</body>
+</html>
