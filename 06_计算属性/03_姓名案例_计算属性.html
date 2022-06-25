@@ -33,7 +33,11 @@
           // 此处的vm是Vue实例，this也是
           console.log(vm);
           console.log(this);*/
-          return this.firstname + " - " + this.lastname
+          return this.firstname + " - " + this.lastname;
+        },
+        // set调用时机：fullName被修改的时候
+        set(value) {
+          console.log(value);
         }
       }
     }
