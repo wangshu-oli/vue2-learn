@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>绑定样式</title>
+  <style>
+      .basic {
+          width: 400px;
+          height: 100px;
+          border: 1px solid black;
+      }
+
+      .blue {
+          width: 400px;
+          height: 100px;
+          border: 1px solid blue;
+      }
+
+      .a {
+          border: 1px solid yellow;
+      }
+
+      .b {
+          border: 1px solid red;
+      }
+
+      .c {
+          border: 1px solid green;
+      }
+  </style>
+</head>
+<body>
+<div id="root">
+  <!--字符串写法，适用于样式类型需要动态指定-->
+  <div class="basic" :class="color" @click="change">test1</div>
+  <hr/>
+  <!--数组写法，适用于样式的个数、名称都不确定-->
+  <div class="basic" :class="arr">test2</div>
+  <hr/>
+  <!--对象写法，适用于样式的个数、名称都确定，是否启用的情况-->
+  <div class="basic" :class="classObj">test3</div>
+  <hr/>
+  <!--对象写法-->
+  <div class="basic" :style="styleObj">test4</div>
+</div>
+</body>
+<script type="text/javascript">
+  new Vue({
+    el: '#root',
+    data: {
+      color: 'basic',
+      arr: ['a', 'b', 'c'],
+      classObj: {
+        a: true,
+        b: false
+      },
+      fSize: 20,
+      styleObj: {
+        fontSize: '40px'
+      }
+    },
+    methods: {
+      change() {
+        this.color = 'blue';
+      }
+    }
+  });
+</script>
+</html>
