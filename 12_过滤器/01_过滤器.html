@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript" src="../js/dayjs.min.js"></script>
+  <title>过滤器</title>
+</head>
+<body>
+<div id="vm">
+  <h2>显示格式化后的时间</h2>
+  <!--1. 计算属性实现-->
+  <h3>现在是：{{fmtTime}}</h3>
+  <!--2. methods实现-->
+  <h3>现在是：{{getFmtTime()}}</h3>
+  <!--3. 过滤器实现-->
+  <!--先将time作为参数传入timeFormatter，将结果继续传入splicer-->
+  <h3>现在是：{{time | timeFormatter() | splicer()}}</h3>
+</div>
+</body>
+<script type="text/javascript">
+  //定义全局过滤器
+  /*Vue.filter('filter01',function (val){
+    return dayjs(time).format(format);
+  });*/
+  new Vue({
+    el: '#vm',
+    data: {
+      time: 1656916274482 //这是一个时间戳
+    },
+    computed: {
+      fmtTime() {
+        /*不传参数的话会默认使用当前时间*/
+        return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss');
+      }
+    },
+    methods: {
+      getFmtTime() {
+        return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss');
+      }
+    },
+    // 局部过滤器，各组件不通
+    filters: {
+      /*过滤器本质还是函数*/
+      /*ES6语法，没有传入format的话默认是：YYYY-MM-DD HH:mm:ss*/
+      timeFormatter(time, format = 'YYYY-MM-DD HH:mm:ss') {
+        return dayjs(time).format(format);
+      },
+      splicer(time) {
+        console.log(time);
+        return time;
+      }
+    }
+  });
+</script>
+</html>

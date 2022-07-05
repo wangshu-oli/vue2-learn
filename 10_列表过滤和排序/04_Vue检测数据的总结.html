@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <title>Vue检测数据的总结</title>
+</head>
+<body>
+<div id="vm">
+  <h1>学生信息</h1>
+  <button @click="student.age++">年龄+1岁</button>
+  <br/>
+  <button @click="addGender">添加性别属性，默认：男</button>
+  <br/>
+  <button @click="addFriend">在列表首位添加一个朋友</button>
+  <br/>
+  <button @click="updateFirstFriend">修改第一个朋友的名字为：张三</button>
+  <br/>
+  <button @click="pushHobby">添加一个爱好</button>
+  <br/>
+  <button @click="updateFirstHobby">修改第一个爱好为：开车</button>
+  <br/>
+  <h3>姓名：{{student.name}}</h3>
+  <h3>年龄：{{student.age}}</h3>
+  <h3 v-show="student.gender">性别：{{student.gender}}</h3>
+  <h3>爱好：</h3>
+  <ul>
+    <li v-for="(h,index) in student.hobby" :key="index">{{h}}</li>
+  </ul>
+  <h3>朋友：</h3>
+  <ul>
+    <li v-for="(f,index) in student.friends" :key="index">{{f.name}} -- {{f.age}}</li>
+  </ul>
+</div>
+</body>
+<script type="text/javascript">
+  /*计算属性，应该使用这种方式*/
+  new Vue({
+    el: '#vm',
+    data: {
+      student: {
+        name: 'Tom',
+        age: 18,
+        hobby: ['抽烟', '喝酒', '烫头'],
+        friends: [{name: 'Jerry', age: 35}, {name: 'Tony', age: 36}]
+      }
+    },
+    methods: {
+      addGender() {
+        Vue.set(this.student, 'gender', '男');
+        /*this.$set(this.student, 'gender', '男');*/
+      },
+      addFriend() {
+        /*添加的对象是响应式的，切里面的属性也是*/
+        this.student.friends.unshift({name: 'Tom', age: 40});
+      },
+      updateFirstFriend() {
+        this.student.friends[0].name = '张三';
+      },
+      pushHobby() {
+        this.student.hobby.push('打篮球');
+      },
+      updateFirstHobby() {
+        /*不能直接通过索引修改，不能让vue监听，不会变成响应式*/
+        // 1. 第一种：this.student.hobby.splice(0,1,'开车');
+        // 2 第二种
+        Vue.set(this.student.hobby,0,'开车');
+      }
+    }
+  });
+</script>
+</html>

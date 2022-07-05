@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../../js/vue.js"></script>
+  <title>v-html</title>
+</head>
+<body>
+<div id="vm">
+  <div v-html="htmlStr"></div>
+</div>
+</body>
+<script type="text/javascript">
+  new Vue({
+    el: '#vm',
+    data: {
+      str: 'text',
+      htmlStr:'<h2>htmlStr</h2>'
+    }
+  });
+</script>
+</html>
