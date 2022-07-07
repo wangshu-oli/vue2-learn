@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../../../js/vue.js"></script>
+  <title>自定义指令对象式</title>
+</head>
+<body>
+<!--需求：定义一个v-fbind指令，和v-bind功能类似，但是可以让其所绑定的input标签自动获取焦点-->
+<div id="vm">
+  <input type="text" v-fbind:value="n">
+</div>
+</body>
+<script type="text/javascript">
+  //全局指令
+  /*Vue.directive('fbind', {
+    // 当指令与元素成功绑定时调用
+    bind(element, binding) {
+      element.value = binding.value;
+    },
+    // 指令所在元素被插入页面时调用
+    inserted(element, binding) {
+      /!*这个函数如果在函数式中使用不会生效，因为函数式时绑定时执行，而focus()是元素加载到页面时才能生效*!/
+      element.focus();
+    },
+    // 指令所在模板被重新解析时调用
+    update(element, binding) {
+      element.value = binding.value;
+    }
+  });*/
+
+  /*Vue.directive('big', function(element, binding) {
+        element.innerText = binding.value * 10;
+      });*/
+  new Vue({
+    el: '#vm',
+    data: {
+      n: 11
+    },
+    directives: {
+      /*这种写法bind()和update()中的逻辑往往相同，所以才会简化成函数式*/
+      fbind: {
+        // 当指令与元素成功绑定时调用
+        bind(element, binding) {
+          element.value = binding.value;
+        },
+        // 指令所在元素被插入页面时调用
+        inserted(element, binding) {
+          /*这个函数如果在函数式中使用不会生效，因为函数式时绑定时执行，而focus()是元素加载到页面时才能生效*/
+          element.focus();
+        },
+        // 指令所在模板被重新解析时调用
+        update(element, binding) {
+          element.value = binding.value;
+        }
+      }
+    }
+  });
+</script>
+</html>

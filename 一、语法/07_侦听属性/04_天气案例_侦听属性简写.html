@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../../js/vue.js"></script>
+  <title>天气案例_侦听属性简写</title>
+</head>
+<body>
+<div id="root">
+  <h2>今天天气很{{info}}</h2>
+  <button @click="changeWeather">切换天气</button>
+</div>
+</body>
+<script type="text/javascript">
+  const vm = new Vue({
+    el: '#root',
+    data: {
+      isHot: true
+    },
+    computed: {
+      info() {
+        return this.isHot ? '炎热' : '凉爽';
+      }
+    },
+    methods: {
+      changeWeather() {
+        this.isHot = !this.isHot;
+      }
+    },
+    //监听属性写法1
+    watch: {
+      // 正常写法
+      /*isHot: {
+        immediate: true,// 初始化时调用一次handler，但第一次运行的oldVal是undefined;计算属性也可以侦听
+        // handler 当isHot被修改的时候调用
+        handler(newVal, oldVal) {
+          console.log(newVal);
+          console.log(oldVal);
+        }
+      }*/
+      // 简写形式，只有一个handler的时候可以使用,写成这样默认就是执行handler函数
+      /*isHot(newVal, oldVal) {
+        console.log(newVal);
+        console.log(oldVal);
+      }*/
+    }
+  });
+  //侦听属性写法2完整写法
+  /*vm.$watch('isHot',{
+    immediate: true,// 初始化时调用一次handler，但第一次运行的oldVal是undefined;计算属性也可以侦听
+    // handler 当isHot被修改的时候调用
+    handler(newVal, oldVal) {
+      console.log(newVal);
+      console.log(oldVal);
+    }
+  });*/
+  //侦听属性写法2简写
+  vm.$watch('isHot', function (newVal, oldVal) {
+    console.log(newVal);
+    console.log(oldVal);
+  })
+</script>
+</html>

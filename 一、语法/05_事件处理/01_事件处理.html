@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>事件处理</title>
+  <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<!--需求：点击按钮弹窗-->
+<div id="root">
+  <button v-on:click="showInfo">Click Me</button>
+  <!--v-on的简写是@-->
+  <button @click="showInfo">Click Me</button>
+  <!--需求2：点击但是需要传入一个参数-->
+  <button @click="showInfo2('abc',$event)">Click Me2</button>
+</div>
+</body>
+<script type="text/javascript">
+  //在Vue实例外定义的方法并不能被Vue指令识别
+  /*function showInfo() {
+    alert("Click Me!");
+  }*/
+  new Vue({
+    el: '#root',
+    methods: {
+      /*会默认接受一个事件变量*/
+      showInfo(event) {
+        /*标签本身*/
+        console.log(event.target.innerHTML);
+        /*this 是Vue实例的vm,但注意，箭头函数的this是window,一般来说，被Vue管理的函数不要写成箭头函数*/
+        console.log(this);
+        alert("Click Me!");
+      },
+      showInfo2(str,event) {
+        /*标签本身*/
+        console.log(event.target.innerHTML);
+        /*this 是Vue实例的vm,但注意，箭头函数的this是window,一般来说，被Vue管理的函数不要写成箭头函数*/
+        console.log(this);
+        alert("Click Me:"+str);
+      }
+    }
+  });
+</script>
+</html>

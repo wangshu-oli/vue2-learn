@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>el和data的两种写法</title>
+  <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="vm">
+  <h1>你好，{{name}}</h1>
+</div>
+<script type="text/javascript">
+  /*const vm = new Vue({
+    //el: '#vm', 第一种写法
+    data: {
+      name: 'jack'
+    }
+  });
+  vm.$mount("#vm"); //第二种写法*/
+  new Vue({
+    el: '#vm',
+    // data的第一种写法，对象式
+    /*data: {
+      name: 'jack'
+    }*/
+    //data的第二种写法，函数式，必须要返回数据对象，
+    //vue组件必须使用函数式
+    data() {
+      console.log(this) //这里的this是Vue实例对象，不能使用箭头函数，箭头函数的this是Windows
+      return {
+        name: 'jack2'
+      }
+    }
+  });
+</script>
+</body>
+</html>

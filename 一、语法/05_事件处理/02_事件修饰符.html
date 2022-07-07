@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>事件修饰符</title>
+  <script type="text/javascript" src="../../js/vue.js"></script>
+  <style>
+      .list {
+          width: 200px;
+          height: 200px;
+          overflow: auto;
+      }
+
+      li {
+          height: 100px;
+          background-color: brown;
+      }
+  </style>
+</head>
+<body>
+<!--需求：点击按钮弹窗-->
+<div id="root">
+  <h2>姓名：{{name}}</h2>
+  <!--阻止默认事件-->
+  <a href="https://www.baidu.com" @click.prevent="showInfo">Click Me</a>
+  <br>
+  <br>
+  <!--阻止事件冒泡-->
+  <div @click="showInfo">
+    <button @click.stop="showInfo">点我1</button>
+  </div>
+  <!--事件只触发一次-->
+  <button @click.once="showInfo">点我2</button>
+  <!--使用事件的捕获模式-->
+  <div class="box1" @click.capture="showInfo(1)">
+    div1
+    <div class="box2" @click="showInfo(2)">
+      div2
+    </div>
+  </div>
+
+  <!--self ：只有event.target表示是当前操作的元素时才会触发-->
+  <div @click.self="showInfo(4)">
+    <button @click="showInfo(3)">Click Me 3</button>
+  </div>
+
+  <!--事件的默认行为立即执行-->
+  <!--scroll 和 wheel 两个事件区别：
+  scroll只要滚动条滚动就会触发，不管是鼠标滚轮还是拉动还是上下，但是滚动条到底后不再触发
+  wheel只当鼠标滚轮滚动触发，到底后依旧触发
+  -->
+  <ul class="list" @wheel.passive="printInfo">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+</div>
+</body>
+<script type="text/javascript">
+  new Vue({
+    el: '#root',
+    data: {
+      name: '张张'
+    },
+    methods: {
+      showInfo(number) {
+        // 代码方式阻止默认事件，在这里是阻止跳转
+        /*event.preventDefault();*/
+        alert("Click Me:" + number);
+      },
+      printInfo() {
+        for (let i = 0; i < 100000; i++) {
+          console.log('#');
+        }
+        console.log('# - done');
+      }
+    }
+  });
+</script>
+</html>

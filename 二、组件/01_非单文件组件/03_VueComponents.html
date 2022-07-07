@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>非单文件组件_组件的嵌套</title>
+</head>
+<body>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<!--容器-->
+<div id="vm">
+  <school></school>
+</div>
+<script>
+
+  // 组件的使用：1 创建 2 注册 3 使用
+  // 创建school组件
+  const school = Vue.extend({
+    // `` 可以在里面进行换行
+    template: `
+      <div>
+        <h2>学校名称：{{ schoolName }}</h2>
+        <h2>学校地址：{{ address }}</h2>
+      </div>
+    `,
+    data() {
+      return {
+        schoolName: 'xx大学',
+        address: '北京'
+      }
+    }
+  });
+
+  new Vue({
+    el: '#vm',
+    // 注册组件，key:val形式，key是组件的名，val是组件示例，如果key、val相同的话可以简写
+    // 这是局部注册
+    components: {
+      school
+    }
+  });
+
+</script>
+</body>
+</html>

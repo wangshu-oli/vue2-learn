@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../../../js/vue.js"></script>
+  <title>自定义指令函数式</title>
+</head>
+<body>
+<!--需求：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍-->
+<div id="vm">
+  <h2>没放大的N：<span v-text="n"></span></h2>
+  <h2>放大后的N：<span v-big="n"></span></h2>
+  <button @click="n++">点我N+1</button>
+</div>
+</body>
+<script type="text/javascript">
+  new Vue({
+    el: '#vm',
+    data: {
+      n: 11
+    },
+    directives: {
+      /*函数写法*/
+      /*直接定义v-后面的名称，v-会被Vue补上*/
+      //big函数被调用时机：1. 指令与元素成功绑定时被调用(一上来解析到) 2. 指令所在的模板被重新解析时
+      big(element, binding) {
+        element.innerText = binding.value * 10;
+      }
+    }
+  });
+</script>
+</html>

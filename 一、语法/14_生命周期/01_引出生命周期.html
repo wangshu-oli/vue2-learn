@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="../../js/vue.js"></script>
+  <title>引出生命周期</title>
+</head>
+<body>
+<div id="vm">
+  <!--{opacity:opacity} 这里可以使用JS对象简写形式{opacity}-->
+  <h2 :style="{opacity:opacity}">Hello，Vue</h2>
+</div>
+</body>
+<script type="text/javascript">
+  new Vue({
+    el: '#vm',
+    data: {
+      opacity: 1
+    },
+    // Vue完成模板的解析并把初试的真实DOM元素放入页面后（挂载完毕）调用，也就是说只会调用一次
+    mounted() {
+      console.log("mounted");
+      setInterval(() => {
+        this.opacity -= 0.01;
+        /*正常来说数值的计算要借助第三方库*/
+        if (this.opacity <= 0) this.opacity = 1;
+      }, 16)
+    }
+  });
+</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数据绑定</title>
+  <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="vm">
+  <!--v-bind是将data-->
+  单向数据绑定：
+  <label>
+    <input type="text" :value="name"/>
+  </label>
+  双向数据绑定：
+  <label>
+    <!--<input type="text" v-model:value="name"/>-->
+    <input type="text" v-model="name"/>
+    <!--下面代码错误，v-model:只能用于表单类元素（输入类）上
+      也就是说需要有value值才行
+    -->
+    <h2 v-model:x="name"></h2>
+  </label>
+</div>
+<script type="text/javascript">
+  new Vue({
+    el: '#vm',
+    data: {
+      name: 'jack',
+      url: 'https://www.baidu.com/'
+    }
+  });
+</script>
+</body>
+</html>
